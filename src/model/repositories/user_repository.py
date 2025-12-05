@@ -17,3 +17,34 @@ class UserRepository(UserRepositoryInterface):
                        )
         
         self.__conn.commit()
+
+    def edit_balance(self, user_id: int, new_balance:float):
+        cursor =  self.__conn.cursor()
+        cursor.execute(
+            '''
+              UPDATE users
+              SET
+              balance = ?
+              where id = ?;
+            ''',
+            (new_balance, user_id)
+        )
+
+        self.__conn.commit()
+
+    def get_user_by_user_name(self, user_name:str):
+        cursor = self.__conn.cursor()
+
+        cursor.execute(
+            '''
+            SELECT 
+              id, username, password, balance
+            FROM users
+            WHERE username = ?;
+            ''',
+            (user_name, )
+        )
+
+        user = cursor.fetchone()
+        return user
+
