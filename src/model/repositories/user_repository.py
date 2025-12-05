@@ -38,7 +38,7 @@ class UserRepository(UserRepositoryInterface):
         cursor.execute(
             '''
             SELECT 
-              id, username, password, balance
+              id, username, password
             FROM users
             WHERE username = ?;
             ''',
